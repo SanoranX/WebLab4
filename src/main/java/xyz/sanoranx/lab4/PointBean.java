@@ -5,12 +5,13 @@ import java.util.List;
 
 @Stateless
 public class PointBean {
-    public void addPoint(Double x, Double y, Double r) {
+    public void addPoint(Double x, Double y, Double r, String creator) {
         Point p = new Point();
         p.setX(x);
         p.setY(y);
         p.setR(r);
         p.setResult(Point.calculate(x, y, r));
+        p.setCreator(creator);
         Database.pointEM.getTransaction().begin();
         Database.pointEM.persist(p);
         Database.pointEM.flush();

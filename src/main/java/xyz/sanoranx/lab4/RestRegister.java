@@ -26,24 +26,24 @@ public class RestRegister {
     @Produces(MediaType.APPLICATION_JSON)
     public String register(String s) {
         Gson gson = new Gson();
-        ResponseStructure resp = new ResponseStructure();
+        ResponseStructure responseStructure = new ResponseStructure();
         try {
-            JsonElement root = new JsonParser().parse(s);
-            String username = root.getAsJsonObject().get("username").getAsString();
+            JsonElement jsonElement = new JsonParser().parse(s);
+            String username = jsonElement.getAsJsonObject().get("username").getAsString();
 
             if (userBean.isRegistered(username)) {
-                resp.status = "exists";
-                return gson.toJson(resp, ResponseStructure.class);
+                responseStructure.status = "exists";
+                return gson.toJson(responseStructure, ResponseStructure.class);
             }
             else {
-                String password = root.getAsJsonObject().get("password").getAsString();
-                resp.status = "ok";
-                resp.key = userBean.register(username, password);
-                return gson.toJson(resp, ResponseStructure.class);
+                String password = jsonElement.getAsJsonObject().get("password").getAsString();
+                responseStructure.status = "ok";
+                responseStructure.key = userBean.register(username, password);
+                return gson.toJson(responseStructure, ResponseStructure.class);
             }
         } catch (Exception e) {
-            resp.status = "failed";
-            return gson.toJson(resp, ResponseStructure.class);
+            responseStructure.status = "failed";
+            return gson.toJson(responseStructure, ResponseStructure.class);
         }
     }
 
@@ -62,7 +62,6 @@ public class RestRegister {
             resp.status = "ok";
             resp.key = userBean.login(username, password);
             return gson.toJson(resp, ResponseStructure.class);
-
         } catch (Exception e) {
             resp.status = "failed";
             return gson.toJson(resp, ResponseStructure.class);

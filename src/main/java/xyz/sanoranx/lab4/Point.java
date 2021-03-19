@@ -16,12 +16,14 @@ public class Point {
     private Double y;
     private Double r;
     private Boolean result;
+    private String creator;
 
-    public Point(Double x, Double y, Double r, Boolean result) {
+    public Point(Double x, Double y, Double r, Boolean result, String creator) {
         this.x = x;
         this.y = y;
         this.r = r;
         this.result = result;
+        this.creator = creator;
     }
 
     public String getX() {
@@ -64,6 +66,10 @@ public class Point {
         this.id = id;
     }
 
+    public void setCreator(String creator) { this.creator = creator; }
+
+    public String getCreator() { return creator; }
+
     public Point() {
         x = 0.;
         y = 0.;
@@ -72,9 +78,9 @@ public class Point {
     }
 
     public static Boolean calculate(Double x, Double y, Double r) {
-        if (x <= 0 && y <= 0 && Math.sqrt(x*x + y*y) <= Math.abs(r))
+        if (x <= 0 && y <= 0 && Math.sqrt(x * x + y * y) <= Math.abs(r))
             return true;
-        else if (x >= 0 && y <= 0 && x <= r/2 && y >= -r)
+        else if (x >= 0 && y <= 0 && x <= r / 2 && y >= -r)
             return true;
         else if (x >= 0 && y >= 0 && r - x >= y)
             return true;
