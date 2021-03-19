@@ -1,4 +1,6 @@
-package xyz.sanoranx.lab4;
+package xyz.sanoranx.lab4.rest;
+
+import xyz.sanoranx.lab4.entity.Point;
 
 import java.util.List;
 

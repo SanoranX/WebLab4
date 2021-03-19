@@ -1,4 +1,4 @@
-package xyz.sanoranx.lab4;
+package xyz.sanoranx.lab4.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

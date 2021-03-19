@@ -1,4 +1,4 @@
-package xyz.sanoranx.lab4;
+package xyz.sanoranx.lab4.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

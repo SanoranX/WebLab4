@@ -5,7 +5,7 @@
              version="2.2">
     <persistence-unit name="PointUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <class>xyz.sanoranx.lab4.Point</class>
+        <class>xyz.sanoranx.lab4.entity.Point</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
@@ -21,7 +21,7 @@
 
     <persistence-unit name="UserUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <class>xyz.sanoranx.lab4.User</class>
+        <class>xyz.sanoranx.lab4.entity.User</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />

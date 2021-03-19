@@ -1,8 +1,9 @@
-package xyz.sanoranx.lab4;
+package xyz.sanoranx.lab4.rest;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import xyz.sanoranx.lab4.beans.UserBean;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -27,19 +28,29 @@ public class RestRegister {
         try {
             JsonElement jsonElement = new JsonParser().parse(s);
             String username = jsonElement.getAsJsonObject().get("username").getAsString();
+            String password = jsonElement.getAsJsonObject().get("password").getAsString();
 
             if (userBean.isRegistered(username)) {
                 responseStructure.status = "exists";
                 return gson.toJson(responseStructure, ResponseStructure.class);
             }
+            else if(username.length() > 16 || password.length() > 16){
+                throw new Exception("Login more than 16");
+            }
+            else if(username.contains("@") || password.contains("@") || username.contains(" ") || password.contains(" ")){
+                throw new Exception("Illegal symbols used");
+            }
+            else if(username.equals(password)){
+                throw new Exception("Password and login are the same");
+            }
             else {
-                String password = jsonElement.getAsJsonObject().get("password").getAsString();
                 responseStructure.status = "ok";
                 responseStructure.key = userBean.register(username, password);
                 return gson.toJson(responseStructure, ResponseStructure.class);
             }
         } catch (Exception e) {
             responseStructure.status = "failed";
+            System.err.println("Exception in register: " + e.getMessage());
             return gson.toJson(responseStructure, ResponseStructure.class);
         }
     }
@@ -51,15 +62,26 @@ public class RestRegister {
     public String login(String s) {
         ResponseStructure resp = new ResponseStructure();
         Gson gson = new Gson();
-
         try {
             JsonElement root = new JsonParser().parse(s);
             String username = root.getAsJsonObject().get("username").getAsString();
             String password = root.getAsJsonObject().get("password").getAsString();
-            resp.status = "ok";
-            resp.key = userBean.login(username, password);
-            return gson.toJson(resp, ResponseStructure.class);
+            if(username.length() > 16 || password.length() > 16){
+                throw new Exception("Login more than 16");
+            }
+            else if(username.contains("@") || password.contains("@") || username.contains(" ") || password.contains(" ")){
+                throw new Exception("Illegal symbols used");
+            }
+            else if(username.equals(password)){
+                throw new Exception("Password and login are the same");
+            }
+            else{
+                resp.status = "ok";
+                resp.key = userBean.login(username, password);
+                return gson.toJson(resp, ResponseStructure.class);
+            }
         } catch (Exception e) {
+            System.err.println("Exception in login: " + e.getMessage());
             resp.status = "failed";
             return gson.toJson(resp, ResponseStructure.class);
         }
@@ -72,10 +94,15 @@ public class RestRegister {
     public String logout(String s) {
         Gson gson = new Gson();
         ResponseStructure resp = new ResponseStructure();
-
-        JsonElement root = new JsonParser().parse(s);
-        String key = root.getAsJsonObject().get("key").getAsString();
-        resp.status = userBean.logout(key) ? "ok" : "failed";
-        return gson.toJson(resp, ResponseStructure.class);
+        try {
+            JsonElement root = new JsonParser().parse(s);
+            String key = root.getAsJsonObject().get("key").getAsString();
+            resp.status = userBean.logout(key) ? "ok" : "failed";
+            return gson.toJson(resp, ResponseStructure.class);
+        }catch (Exception e){
+            System.err.println("Eception in logout: " + e.getMessage());
+            resp.status = "failed";
+            return gson.toJson(resp, ResponseStructure.class);
+        }
     }
 }

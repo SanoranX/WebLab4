@@ -1,4 +1,7 @@
-package xyz.sanoranx.lab4;
+package xyz.sanoranx.lab4.beans;
+
+import xyz.sanoranx.lab4.dao.Database;
+import xyz.sanoranx.lab4.entity.Point;
 
 import javax.ejb.Stateless;
 import java.util.List;
