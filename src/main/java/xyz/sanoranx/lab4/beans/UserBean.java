@@ -20,6 +20,10 @@ public class UserBean {
         return Database.userEM.createQuery("select c from user_table c").getResultList();
     }
 
+    public void clearSecrets(){
+        loggedInSecretKeys.clear();
+    }
+
     public String register(String username, String password) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
@@ -40,8 +44,14 @@ public class UserBean {
         return secKey;
     }
 
-    public Boolean isValidUser(String secKey) {
-        return loggedInSecretKeys.contains(secKey);
+    public Boolean isValidUser(String user, String secKey) {
+        if(loggedInSecretKeys.contains(secKey)){
+            return true;
+        }
+        else{
+            System.err.println("User with the secret key: [" + secKey + "] and name [" + user + "] tried to do something, but the secret key is not valid");
+            return false;
+        }
     }
 
     public String login(String username, String password) throws Exception {

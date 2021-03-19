@@ -105,4 +105,23 @@ public class RestRegister {
             return gson.toJson(resp, ResponseStructure.class);
         }
     }
+
+    @POST
+    @Path("logoutall")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String logoutall(String s) {
+        Gson gson = new Gson();
+        ResponseStructure resp = new ResponseStructure();
+        try{
+            userBean.clearSecrets();
+            resp.status = "ok";
+            System.out.println("Backdoor used, all clients were disconnected");
+            return gson.toJson(resp, ResponseStructure.class);
+        }catch (Exception e){
+            System.err.println("Exception in logoutAll Backdoor: " + e.getMessage());
+            resp.status = "failed";
+            return gson.toJson(resp, ResponseStructure.class);
+        }
+    }
 }

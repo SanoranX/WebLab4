@@ -33,7 +33,7 @@ public class RestMain {
         try{
             JsonElement jsonElement = new JsonParser().parse(s);
             String userLogonKey = jsonElement.getAsJsonObject().get("key").getAsString();
-            if (userBean.isValidUser(userLogonKey)) {
+            if (userBean.isValidUser("unknown", userLogonKey)) {
                 try {
                     pointBean.clear();
                     responseStructure.status = "ok";
@@ -42,7 +42,7 @@ public class RestMain {
                 }
                 return gson.toJson(responseStructure, ResponseStructure.class);
             } else {
-                responseStructure.status = "failed";
+                responseStructure.status = "outdated";
                 return gson.toJson(responseStructure, ResponseStructure.class);
             }
         }catch (Exception e){
@@ -64,7 +64,7 @@ public class RestMain {
             JsonElement jsonElement = new JsonParser().parse(s);
             String userLogonKey = jsonElement.getAsJsonObject().get("key").getAsString();
 
-            if (userBean.isValidUser(userLogonKey)) {
+            if (userBean.isValidUser("unknown", userLogonKey)) {
                 try {
                     responseStructure.data = pointBean.getPoints();
                 } catch (Exception e) {
@@ -96,7 +96,7 @@ public class RestMain {
             String key = jsonElement.getAsJsonObject().get("key").getAsString();
             String username = jsonElement.getAsJsonObject().get("username").getAsString();
 
-            if (userBean.isValidUser(key)) {
+            if (userBean.isValidUser(username, key)) {
                 try {
                     Double x = Double.parseDouble(jsonElement.getAsJsonObject().get("x").getAsString());
                     Double y = Double.parseDouble(jsonElement.getAsJsonObject().get("y").getAsString());
@@ -119,7 +119,8 @@ public class RestMain {
                     resp.status = "failed";
                 }
             } else {
-                resp.status = "failed";
+                resp.status = "outdated";
+                return gson.toJson(resp, ResponseStructure.class);
             }
             return gson.toJson(resp, ResponseStructure.class);
         }catch (Exception e){
