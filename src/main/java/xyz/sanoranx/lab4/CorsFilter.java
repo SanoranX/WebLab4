@@ -1,4 +1,4 @@
-package com.example.lab4;
+package xyz.sanoranx.lab4;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;

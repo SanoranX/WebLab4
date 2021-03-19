@@ -1,4 +1,4 @@
-package com.example.lab4;
+package xyz.sanoranx.lab4;
 
 import javax.ejb.Singleton;
 import java.math.BigInteger;

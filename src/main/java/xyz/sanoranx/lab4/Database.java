@@ -1,4 +1,4 @@
-package com.example.lab4;
+package xyz.sanoranx.lab4;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

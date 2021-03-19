@@ -1,4 +1,4 @@
-package com.example.lab4;
+package xyz.sanoranx.lab4;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -10,7 +10,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 @Stateless
 @Path("/api")
