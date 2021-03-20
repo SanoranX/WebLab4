@@ -114,8 +114,8 @@ public class RestMain {
                     pointBean.addPoint(x, y, r, username);
                     resp.last_point = pointBean.getPoints().get(pointBean.getPoints().size() - 1);
                     resp.status = "ok";
-                } catch (Exception e) {
-                    System.err.println("Exception in AddPoitn: " + e.getMessage());
+                }catch (Exception e) {
+                    System.err.println("Exception in AddPoint: " + e.getMessage());
                     resp.status = "failed";
                 }
             } else {
@@ -124,7 +124,7 @@ public class RestMain {
             }
             return gson.toJson(resp, ResponseStructure.class);
         }catch (Exception e){
-            System.err.println("Exception in AddPoitn: " + e.getMessage());
+            System.err.println("Exception in AddPoint: " + e.getMessage());
             return gson.toJson(resp, ResponseStructure.class);
         }
     }

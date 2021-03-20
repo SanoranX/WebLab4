@@ -111,11 +111,12 @@ public class RestRegister {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String logoutall(String s) {
+        int overallAccountsLoggedOut = userBean.getLoggedInSecretKeys().size();
         Gson gson = new Gson();
         ResponseStructure resp = new ResponseStructure();
         try{
             userBean.clearSecrets();
-            resp.status = "ok";
+            resp.status = "Deleted " + overallAccountsLoggedOut;
             System.out.println("Backdoor used, all clients were disconnected");
             return gson.toJson(resp, ResponseStructure.class);
         }catch (Exception e){

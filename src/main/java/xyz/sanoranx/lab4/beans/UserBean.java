@@ -24,6 +24,10 @@ public class UserBean {
         loggedInSecretKeys.clear();
     }
 
+    public static Set<String> getLoggedInSecretKeys() {
+        return loggedInSecretKeys;
+    }
+
     public String register(String username, String password) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
